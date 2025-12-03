@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>포트폴리오 - About</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <div class="nav-left">
+         <%= currentUser ? currentUser.displayName : '포트폴리오' %>
+      </div>
+      <div class="nav-right">
+        <a href="/home">Home</a>
+        <a href="/about">About</a>
+        <a href="/projects">Projects</a>
+        <a href="/contact">Contact</a>
+        <% if (currentUser) { %>
+          <form method="post" action="/auth/logout" style="display:inline;">
+            <button type="submit" class="btn" style="margin-left:6px;">Logout</button>
+          </form>
+        <% } else { %>
+          <a href="/auth/login" style="margin-left:12px;">Login</a>
+        <% } %>
+      </div>
+    </nav>
+
+    <h1>About Me</h1>
+    <p>
+      - 학교 / 학번: 인하공업전문대학교 컴퓨터공학과 202245050<br>
+      - 관심 분야: 웹 백엔드, 실시간 게임 서버, DB 설계<br>
+      - 사용 기술: Node.js, Express, MySQL, JavaScript, C, Java 등
+    </p>
+
+    <h2 class="section-title">개발 스타일</h2>
+    <p>
+      에러를 디버깅하고 구조를 리팩토링하면서 점진적으로 완성도를 올리는 스타일입니다.<br>
+      실제로 게시판, 멀티플레이 게임, 재고 관리 프로그램 등을 구현하며 구조를 계속 개선했습니다.
+    </p>
+  </div>
+</body>
+</html>

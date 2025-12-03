@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>포트폴리오 - 홈</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <div class="nav-left">
+         <%= currentUser ? currentUser.displayName : '포트폴리오' %>
+      </div>
+      <div class="nav-right">
+        <a href="/home">Home</a>
+        <a href="/about">About</a>
+        <a href="/projects">Projects</a>
+        <a href="/contact">Contact</a>
+        <% if (currentUser) { %>
+          <form method="post" action="/auth/logout" style="display:inline;">
+            <button type="submit" class="btn" style="margin-left:6px;">Logout</button>
+          </form>
+        <% } else { %>
+          <a href="/auth/login" style="margin-left:12px;">Login</a>
+        <% } %>
+      </div>
+    </nav>
+
+    <h1>안녕하세요, 차준호 입니다.</h1>
+    <p>
+      Node.js / 웹 백엔드를 공부하고 있는 컴퓨터공학과 학생입니다.<br>
+      Express + MySQL 기반 웹 서비스와 실시간 게임 서버를 개발하고 있습니다.
+    </p>
+
+    <h2 class="section-title">대표 프로젝트</h2>
+
+    <ul class="project-list">
+      <% if (projects.length === 0) { %>
+        <li>등록된 프로젝트가 없습니다.</li>
+      <% } %>
+      <% projects.forEach(function(p) { %>
+        <li class="project-card">
+          <h3><%= p.title %></h3>
+          <div class="project-meta">
+            <span><%= p.period %></span> ·
+            <span><%= p.tech %></span>
+          </div>
+          <p class="project-summary"><%= p.summary %></p>
+
+          <% if (p.github) { %>
+            <a href="<%= p.github %>" target="_blank" class="btn">GitHub 보기</a>
+          <% } %>
+
+          <button
+            type="button"
+            class="btn"
+            style="margin-left: 6px;"
+            data-id="<%= p.id %>">
+            상세 내용 보기
+          </button>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+
+  <!-- 모달 -->
+  <div class="modal-overlay" id="projectModalOverlay">
+    <div class="modal">
+      <button class="modal-close" id="projectModalClose">&times;</button>
+      <h2 id="modalTitle"></h2>
+      <p id="modalMeta" style="font-size:13px;color:#666;margin-top:0;"></p>
+      <p id="modalSummary" style="font-size:14px;"></p>
+
+      <div>
+        <div class="modal-section-title">팀원</div>
+        <ul class="modal-team" id="modalTeam"></ul>
+      </div>
+
+      <div>
+        <div class="modal-section-title">내가 맡은 파트</div>
+        <ul class="modal-mypart" id="modalMyPart"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 서버에서 TEXT -> JS 객체로 넘기기
+    const PROJECTS = <%- JSON.stringify(
+      projects.map(p => ({
+        id: p.id,
+        title: p.title,
+        period: p.period,
+        tech: p.tech,
+        summary: p.summary,
+        github: p.github,
+        teamLines: p.team_text ? p.team_text.split('\n') : [],
+        mypartLines: p.mypart_text ? p.mypart_text.split('\n') : [],
+      }))
+    ) %>;
+
+    const overlay = document.getElementById('projectModalOverlay');
+    const closeBtn = document.getElementById('projectModalClose');
+    const titleEl = document.getElementById('modalTitle');
+    const metaEl = document.getElementById('modalMeta');
+    const summaryEl = document.getElementById('modalSummary');
+    const teamEl = document.getElementById('modalTeam');
+    const myPartEl = document.getElementById('modalMyPart');
+
+    function openModalById(id) {
+      const p = PROJECTS.find(x => x.id === Number(id));
+      if (!p) return;
+
+      titleEl.textContent = p.title;
+      metaEl.textContent = `${p.period} · ${p.tech}`;
+      summaryEl.textContent = p.summary;
+
+      teamEl.innerHTML = '';
+      p.teamLines.forEach(line => {
+        if (!line.trim()) return;
+        const li = document.createElement('li');
+        li.textContent = line.replace(/^-\s*/, '');
+        teamEl.appendChild(li);
+      });
+
+      myPartEl.innerHTML = '';
+      p.mypartLines.forEach(line => {
+        if (!line.trim()) return;
+        const li = document.createElement('li');
+        li.textContent = line.replace(/^-\s*/, '');
+        myPartEl.appendChild(li);
+      });
+
+      overlay.style.display = 'flex';
+    }
+
+    function closeModal() {
+      overlay.style.display = 'none';
+    }
+
+    document.querySelectorAll('button[data-id]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        openModalById(btn.getAttribute('data-id'));
+      });
+    });
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        closeModal();
+      }
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+  </script>
+</body>
+</html>
