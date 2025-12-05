@@ -177,3 +177,57 @@ form textarea {
 resize: vertical;
 min-height: 80px;
 }
+
+/* 두 칼럼 레이아웃 */
+.layout {
+    display: flex;
+    gap: 24px;
+  }
+  
+  /* 왼쪽 프로필 */
+  .sidebar {
+    width: 260px;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: #f7f9fb;
+    border: 1px solid #e0e0e0;
+    flex-shrink: 0;
+  }
+  
+  .sidebar h2 {
+    margin-top: 0;
+    font-size: 20px;
+  }
+  
+  .sidebar-section-title {
+    margin-top: 16px;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    font-size: 13px;
+  }
+  
+  .sidebar ul li {
+    margin-bottom: 4px;
+  }
+  
+  /* 오른쪽 메인 */
+  .main {
+    flex: 1;
+  }
+  
+  .profile-photo {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 8px 0 6px 0;
+  }

@@ -9,27 +9,25 @@
   <div class="container">
     <nav>
       <div class="nav-left">
-         <%= currentUser ? currentUser.displayName : '포트폴리오' %>
+        <span class="logo"><%= currentUser ? currentUser.displayName : '차준호' %></span>
       </div>
       <div class="nav-right">
         <a href="/home">Home</a>
         <a href="/about">About</a>
         <a href="/projects">Projects</a>
         <a href="/contact">Contact</a>
-        <% if (currentUser) { %>
-          <form method="post" action="/auth/logout" style="display:inline;">
-            <button type="submit" class="btn" style="margin-left:6px;">Logout</button>
-          </form>
-        <% } else { %>
-          <a href="/auth/login" style="margin-left:12px;">Login</a>
-        <% } %>
       </div>
     </nav>
 
     <h1>Projects</h1>
+    <p style="font-size:14px;color:#555;">
+      수업과 개인 공부를 통해 진행한 웹 서비스 / 게임 / 프로그램 프로젝트들입니다.<br>
+      아래 프로젝트들은 Node.js 백엔드, MySQL, 실시간 통신, Java 등을 활용해 구현했습니다.
+    </p>
 
-    <p style="margin-bottom:12px;">
-      <a href="/projects/new" class="btn">프로젝트 추가</a>
+    <p style="margin: 12px 0 20px 0; font-size:13px;color:#666;">
+      최근 프로젝트가 위에 오도록 정렬되어 있으며, 각 카드의 “상세 내용 보기” 버튼을 누르면<br>
+      팀 구성과 내가 맡은 역할을 자세히 볼 수 있습니다.
     </p>
 
     <ul class="project-list">
@@ -62,7 +60,7 @@
     </ul>
   </div>
 
-  <!-- 모달 -->
+  <!-- 모달은 기존 그대로 (home.ejs와 동일 구조) -->
   <div class="modal-overlay" id="projectModalOverlay">
     <div class="modal">
       <button class="modal-close" id="projectModalClose">&times;</button>

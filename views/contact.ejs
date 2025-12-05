@@ -9,30 +9,40 @@
   <div class="container">
     <nav>
       <div class="nav-left">
-         <%= currentUser ? currentUser.displayName : '포트폴리오' %>
+        <span class="logo"><%= currentUser ? currentUser.displayName : '차준호' %></span>
       </div>
       <div class="nav-right">
         <a href="/home">Home</a>
         <a href="/about">About</a>
         <a href="/projects">Projects</a>
         <a href="/contact">Contact</a>
-        <% if (currentUser) { %>
-          <form method="post" action="/auth/logout" style="display:inline;">
-            <button type="submit" class="btn" style="margin-left:6px;">Logout</button>
-          </form>
-        <% } else { %>
-          <a href="/auth/login" style="margin-left:12px;">Login</a>
-        <% } %>
       </div>
     </nav>
 
     <h1>Contact</h1>
+    <p>
+      포트폴리오나 프로젝트에 대해 궁금한 점이 있다면 아래 연락처로 자유롭게 연락해 주세요.<br>
+      협업, 스터디, 개인 프로젝트 제안 등도 환영합니다.
+    </p>
 
+    <h2 class="section-title">연락처</h2>
     <ul class="contact-list">
       <li>이메일: ckwnsgh4046@naver.com</li>
       <li>GitHub: <a href="https://github.com/ChaJunHo0516" target="_blank">github.com/ChaJunHo0516</a></li>
-      <li>전화번호 : 010-8543-1580</li>
+      <li>전화번호: 010-8543-1580</li>
     </ul>
+
+    <h2 class="section-title">이 포트폴리오 안내</h2>
+    <ul class="contact-list">
+      <li>Home: 간단한 소개와 대표 프로젝트 요약</li>
+      <li>About: 학력, 수업, 프로젝트 요약, 개인 강점 정리</li>
+      <li>Projects: 실제 구현한 프로젝트들의 상세 설명과 GitHub 링크</li>
+    </ul>
+
+    <p style="font-size:13px;color:#666;margin-top:16px;">
+      로그인 후 Projects 페이지에서 새로운 프로젝트를 추가하면,<br>
+      이 포트폴리오에 자동으로 반영되도록 구성되어 있습니다.
+    </p>
   </div>
 </body>
 </html>

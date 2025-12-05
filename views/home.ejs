@@ -4,9 +4,6 @@
   <meta charset="UTF-8">
   <title>포트폴리오 - 홈</title>
   <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-  <div class="container">
     <nav>
       <div class="nav-left">
          <%= currentUser ? currentUser.displayName : '포트폴리오' %>
@@ -25,42 +22,86 @@
         <% } %>
       </div>
     </nav>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>포트폴리오 - 홈</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <!-- 왼쪽: 프로필/정보 -->
+    <aside class="sidebar">
+      <h2><%= currentUser ? currentUser.displayName : '차준호' %></h2>
 
-    <h1>안녕하세요, 차준호 입니다.</h1>
-    <p>
-      Node.js / 웹 백엔드를 공부하고 있는 컴퓨터공학과 학생입니다.<br>
-      Express + MySQL 기반 웹 서비스와 실시간 게임 서버를 개발하고 있습니다.
-    </p>
+        <!-- 여기 사진 추가 -->
+      <img src="/img/profile.jpg" alt="프로필 사진" class="profile-photo">
+      
+      <p style="font-size:13px;color:#666;margin-top:4px;">
+        Node.js / 게임 개발자 지망생
+      </p>
 
-    <h2 class="section-title">대표 프로젝트</h2>
+      <div class="sidebar-section-title">Profile</div>
+      <ul>
+        <li>학교: 인하공업전문대학교 컴퓨터시스템학과</li>
+        <li>학번: 202245050</li>
+        <li>거주지: 인천</li>
+      </ul>
 
-    <ul class="project-list">
-      <% if (projects.length === 0) { %>
-        <li>등록된 프로젝트가 없습니다.</li>
-      <% } %>
-      <% projects.forEach(function(p) { %>
-        <li class="project-card">
-          <h3><%= p.title %></h3>
-          <div class="project-meta">
-            <span><%= p.period %></span> ·
-            <span><%= p.tech %></span>
-          </div>
-          <p class="project-summary"><%= p.summary %></p>
+      <div class="sidebar-section-title">Skills</div>
+      <ul>
+        <li>Node.js, Express</li>
+        <li>MySQL, ERD 설계</li>
+        <li>Java, Eclipse</li>
+        <li>JavaScript, WebSocket</li>
+      </ul>
 
-          <% if (p.github) { %>
-            <a href="<%= p.github %>" target="_blank" class="btn">GitHub 보기</a>
-          <% } %>
+      <div class="sidebar-section-title">Contact</div>
+      <ul>
+        <li>GitHub: ChaJunHo0516</li>
+        <li>이메일: ckwnsgh4046@naver.com</li>
+        <li>전화번호: 010-8543-1580</li>
+      </ul>
+    </aside>
+    <!-- 오른쪽: 소개 + 대표 프로젝트 -->
+    <main class="main">
+      <h1>안녕하세요, <%= currentUser ? currentUser.displayName : '차준호' %> 입니다.</h1>
+      <p>
+        Node.js / 웹 백엔드를 공부하고 있는 컴퓨터공학과 학생입니다.<br>
+        Express + MySQL 기반 웹 서비스와 실시간 게임 서버를 개발하고 있습니다.
+      </p>
 
-          <button
-            type="button"
-            class="btn"
-            style="margin-left: 6px;"
-            data-id="<%= p.id %>">
-            상세 내용 보기
-          </button>
-        </li>
-      <% }); %>
-    </ul>
+      <h2 class="section-title">대표 프로젝트</h2>
+
+      <ul class="project-list">
+        <% if (projects.length === 0) { %>
+          <li>등록된 프로젝트가 없습니다.</li>
+        <% } %>
+        <% projects.forEach(function(p) { %>
+          <li class="project-card">
+            <h3><%= p.title %></h3>
+            <div class="project-meta">
+              <span><%= p.period %></span> ·
+              <span><%= p.tech %></span>
+            </div>
+            <p class="project-summary"><%= p.summary %></p>
+
+            <% if (p.github) { %>
+              <a href="<%= p.github %>" target="_blank" class="btn">GitHub 보기</a>
+            <% } %>
+
+            <button
+              type="button"
+              class="btn"
+              style="margin-left: 6px;"
+              data-id="<%= p.id %>">
+              상세 내용 보기
+            </button>
+          </li>
+        <% }); %>
+      </ul>
+    </main>
   </div>
 
   <!-- 모달 -->
